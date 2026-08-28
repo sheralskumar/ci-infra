@@ -19,6 +19,10 @@ if [[ -z "${VLLM_CI_BRANCH:-}" ]]; then
     VLLM_CI_BRANCH="main"
 fi
 
+if [[ -z "${VLLM_CI_REPO:-}" ]]; then
+    VLLM_CI_REPO="vllm-project/ci-infra"
+fi
+
 if [[ -z "${AMD_MIRROR_HW:-}" ]]; then
     AMD_MIRROR_HW="amdproduction"
 fi
@@ -153,7 +157,7 @@ upload_pipeline() {
         AMD_MIRROR_HW="amdtentative"
     fi
     curl -fsSL -o "$TEMPLATE_PATH" \
-        "https://raw.githubusercontent.com/vllm-project/ci-infra/$VLLM_CI_BRANCH/buildkite/test-template-amd.j2?$(date +%s)"
+        "https://raw.githubusercontent.com/${VLLM_CI_REPO}/${VLLM_CI_BRANCH}/buildkite/test-template-amd.j2?$(date +%s)"
 
 
     echo "List file diff: $LIST_FILE_DIFF"
